@@ -13,7 +13,7 @@ module.exports = {
     var parser = new Parser()
 
     var game = new Game(parser)
-    .addElementType('Prop', 'props')
+    .addElementType('Prop', __dirname + '/../lib/prop.js', 'props')
 
     var prop = new Prop('shovel')
     prop.location = 'house'
@@ -40,5 +40,12 @@ module.exports = {
     var resolved = game.resolveLocalAliases(lexemes, game.parser.env)
     resolved = resolved.join(' ')
     resolved.should.equal('get shite trowel in your mind')
+  },
+
+  "load game element from yaml": function() {
+    game = new Game()
+    game.addElementType('Prop', __dirname + '/../lib/prop.js', 'props')
+    game.addElementFromYamlFile('Prop', __dirname + '/fixtures/sample_prop.yml')
+    game.props.axe.traits.wounds.should.equal('critters')
   }
 }
