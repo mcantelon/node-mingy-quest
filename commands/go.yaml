@@ -6,27 +6,24 @@ syntax:
 logic: |
 
   var output = ''
-
   var direction = arg['direction']
-
   var location = player.location
 
   // If an exit exists, load destination location and issue look command
-  if (locations[location].exits && locations[location].exits[direction])
+  if (locations[location].exits && locations[location].exits[direction]) {
 
     // If player is trying to move around in the dark,
-    // and darkness is lethal in the game,  kill player
-    if locations[location].dark {\
-      && locations[location].dark != 'safe' \
-      && !player.has_lit_item
-
+    // and darkness is lethal in the current location, kill player
+    if (locations[location].dark
+      && locations[location].dark != 'safe'
+      && !player.has_lit_item)
+    {
       game.over = true
       return "You trip in the dark and break your neck.\n"
-
     } else {
 
+      // Check for, and apply, direction conditional 
       if (locations[location].exits[direction]['condition']) {
-
         var result = eval(locations[location].exits[direction]['condition'])
 
         if (!result['success']) {
@@ -38,12 +35,14 @@ logic: |
         }
       }
 
+      // Keep track of previous location
       state['last_location'] = location
 
+      // Change location
       player.location = locations[location].exits[direction]['destination']
 
+      // Initiate "look" command
       return output + '>look'
-
     }
 
   // Otherwise check for a door
@@ -70,12 +69,9 @@ logic: |
       return "It's not open.\n"
 
     } else {
-
       return "You can't go that way.\n"
     }
 
   } else {
-
     return "You can't go that way.\n"
-
   }

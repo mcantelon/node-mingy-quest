@@ -5,6 +5,18 @@ var mingyQuest = require('./lib/index')
   , mingy = require('mingy')
   , Parser = mingy.Parser
   , Command = mingy.Command
+  , fs= require('fs')
+  , yaml = require('js-yaml')
+
+# So game should load commands, then execute them when syntax matches
+
+var file = '/Users/mike/programming/node/node-mingy-quest/commands/test.yaml';
+var com = yaml.safeLoad(fs.readFileSync(file, 'utf8'))
+var name = 'rick';
+var data = {};
+var output = eval('(function(name, data) { ' + com.logic + '})(name, data)');
+console.log('O:' + output);
+console.log(data);
 
 // need function (in game?) to add command to the parser
 // how to allow command logic to get globals? lex scoping I guess

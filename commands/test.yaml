@@ -1,0 +1,9 @@
+---
+syntax:
+- "go <direction>"
+- "enter <direction>"
+
+logic: |
+
+  data['aids'] = 'yeah'
+  return name + ' is a goof'
