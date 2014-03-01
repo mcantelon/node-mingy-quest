@@ -1,0 +1,81 @@
+---
+syntax:
+- "go <direction>"
+- "enter <direction>"
+
+logic: |
+
+  var output = ''
+
+  var direction = arg['direction']
+
+  var location = player.location
+
+  // If an exit exists, load destination location and issue look command
+  if (locations[location].exits && locations[location].exits[direction])
+
+    // If player is trying to move around in the dark,
+    // and darkness is lethal in the game,  kill player
+    if locations[location].dark {\
+      && locations[location].dark != 'safe' \
+      && !player.has_lit_item
+
+      game.over = true
+      return "You trip in the dark and break your neck.\n"
+
+    } else {
+
+      if (locations[location].exits[direction]['condition']) {
+
+        var result = eval(locations[location].exits[direction]['condition'])
+
+        if (!result['success']) {
+          return result['message']
+        }
+
+        if (result['message']) {
+          output += result['message']
+        }
+      }
+
+      state['last_location'] = location
+
+      player.location = locations[location].exits[direction]['destination']
+
+      return output + '>look'
+
+    }
+
+  // Otherwise check for a door
+  } else if (doors[direction]) {
+
+    door = direction
+
+    // If the door exists in the player's location, try it
+    if (doors[door].locations.include?(location)) {
+
+      // Go through door, if it's open
+      if (doors[door].traits['opened']) {
+
+        attempt_successful = doors[door].attempt_entry(player, props)
+
+        if (attempt_successful) {
+          return '>look'
+        } else {
+          return "Something won't fit through.\n"
+        }
+
+      }
+
+      return "It's not open.\n"
+
+    } else {
+
+      return "You can't go that way.\n"
+    }
+
+  } else {
+
+    return "You can't go that way.\n"
+
+  }
