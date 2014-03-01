@@ -1,0 +1,22 @@
+{
+  "name": "mingyquest",
+  "version": "0.0.1",
+  "author": "Mike Cantelon <mcantelon@gmail.com>",
+  "description": "interactive fiction engine",
+  "keywords": [
+    "interactive",
+    "fiction",
+    "adventure"
+  ],
+  "dependencies" : {
+    "js-yaml": "~0.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/mcantelon/node-mingy-quest.git"
+  },
+  "license": "MIT",
+  "engine": {
+    "node": ">=0.4"
+  }
+}
