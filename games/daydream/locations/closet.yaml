@@ -1,15 +1,15 @@
-closet:
-  name: closet
+id: closet
+name: closet
 
-  description: |
-    You are in a small closet. It smells like tacos. There's a bunch of mouldy clothing here and assorted tools.
+description: |
+  You are in a small closet. It smells like tacos. There's a bunch of mouldy clothing here and assorted tools.
 
-  exits:
-    north:
-      destination: entrance
-    south:
-      destination: entrance
-    east:
-      destination: entrance
-    west:
-      destination: entrance
+exits:
+  north:
+    destination: entrance
+  south:
+    destination: entrance
+  east:
+    destination: entrance
+  west:
+    destination: entrance
