@@ -6,6 +6,8 @@ var mingyQuest = require('./lib/index')
   , Parser = mingy.Parser
   , Command = mingy.Command
 
+// need function (in game?) to add command to the parser
+// how to allow command logic to get globals? lex scoping I guess
 var command = new Command('go')
 command.set('syntax', ['go <direction>'])
 command.set('logic', function(args) {
