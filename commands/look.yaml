@@ -1,8 +1,42 @@
 ---
 syntax:
+- "l"
 - "look"
+- "look <prop:noun>"
+- "look <character:noun>"
+- "look <door:noun>"
 
 logic: |
 
-  var output = locations[player.location].description
+  var noun = arg['noun']
+
+  var location = player.location
+
+  var output = ''
+
+  if (noun) {
+
+    description = ''
+
+    if (noun.methods.indexOf('dead') != -1 && noun.dead == true) {
+      description += "#{noun.noun_cap} appears to be dead.\n"
+    } else if (noun.description) {
+      description += noun.description + "\n"
+    } else {
+      description += "You see nothing special.\n"
+    }
+
+    description += game.event(noun, 'on_look')
+
+    output = description
+
+  } else {
+
+    // Show location image, if any
+    // show_image(@locations[location].image_file)
+
+    // Show location description
+    output = locations[location].describe(doors, props, characters, player.has_lit_item)
+  }
+
   return output
