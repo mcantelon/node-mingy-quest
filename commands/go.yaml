@@ -51,7 +51,7 @@ logic: |
     door = direction
 
     // If the door exists in the player's location, try it
-    if (doors[door].locations.include?(location)) {
+    if (doors[door].locations.indexOf(location) != -1) {
 
       // Go through door, if it's open
       if (doors[door].traits['opened']) {

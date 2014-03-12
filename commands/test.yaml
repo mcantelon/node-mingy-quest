@@ -5,5 +5,5 @@ syntax:
 
 logic: |
 
-  data['aids'] = 'yeah'
+  //data['aids'] = 'yeah'
   return name + ' is a goof'

@@ -1,0 +1,8 @@
+---
+syntax:
+- "look"
+
+logic: |
+
+  var output = locations[player.location].description
+  return output

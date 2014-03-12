@@ -9,6 +9,7 @@
     "adventure"
   ],
   "dependencies" : {
+    "mingy": "~0.2.7",
     "js-yaml": "~0.3.2"
   },
   "repository": {
