@@ -27,7 +27,16 @@ function startShell() {
 var game = new Game(parser);
 
 game.player = {
-  'location': 'entrance'
+  'location': 'entrance',
+  'carrying': function() {
+    var carrying = [];
+    for (var prop in game.props) {
+      if (game.props[prop].location == 'player') {
+        carrying.push(prop);
+      }
+    }
+    return carrying;
+  }
 }
 
 game.addElementType('Location', __dirname + '/lib/location.js', 'locations')

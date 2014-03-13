@@ -6,8 +6,9 @@ syntax:
 - "take <character>"
 
 logic: |
+  prop = props[arg.prop]
 
-  if (character) {
+  if (typeof character != 'undefined') {
     prop = character
   }
 
@@ -31,8 +32,8 @@ logic: |
       if (can_get == true) {
 
         // make sure player isn't already carrying maximum
-        if (!player.can_carry_number_of_items
-          || player.carrying.size <= (player.can_carry_number_of_items - 1)
+        if (typeof player.can_carry_number_of_items === 'undefined'
+          || player.carrying().length <= (player.can_carry_number_of_items - 1)
         ) {
 
           prop.location = 'player'
@@ -49,7 +50,9 @@ logic: |
           end
           */
 
-          output += "You take #{prop.noun}.\n"
+          output += "You take " + prop.id + ".\n"
+
+          //output += "You take #{prop.noun}.\n"
 
           on_get_output = game.event(prop, 'on_get')
 
