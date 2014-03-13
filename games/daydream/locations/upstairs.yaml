@@ -1,5 +1,3 @@
-id: upstairs
-name: upstairs
 exits: 
   down:
     destination: entrance

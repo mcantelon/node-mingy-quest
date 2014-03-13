@@ -1,4 +1,3 @@
-id: entrance
 exits: 
   north:
     destination: yard
