@@ -1,5 +1,6 @@
 var mingyQuest = require('./lib/index')
   , Game = mingyQuest.Game
+  , Player = mingyQuest.Player
   , mingy = require('mingy')
   , Parser = mingy.Parser
   , Shell = mingy.Shell
@@ -26,22 +27,10 @@ function startShell() {
 
 var game = new Game(parser);
 
-game.player = {
-  'location': 'entrance',
-  'carrying': function() {
-    var carrying = [];
-    for (var prop in game.props) {
-      if (game.props[prop].location == 'player') {
-        carrying.push(prop);
-      }
-    }
-    return carrying;
-  }
-}
+game.player = new Player();
+game.player.location = 'entrance';
 
 game.addElementType('Location', __dirname + '/lib/location.js', 'locations')
 .addElementType('Prop', __dirname + '/lib/prop.js', 'props')
 .addPlayer('default')
 .loadCommands(__dirname + '/commands', startShell)
-
-//game.loadYamlFilesIntoGame(__dirname + '/games/daydream/locations', 'Location', startShell);

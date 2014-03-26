@@ -1,0 +1,35 @@
+---
+syntax:
+- "i"
+- "inv"
+- "inventory"
+
+logic: |
+
+  var output = ''
+
+  output += "You are carrying:\n"
+
+  var prop_counter = 0
+
+  player.carrying().forEach(function(prop) {
+
+    output += ' ' + prop // prop.noun_direct
+
+    /*
+    if player.wearing.index(prop.id)
+      output << ' (being worn)'
+    end
+    */
+
+    output += "\n"
+
+    prop_counter += 1
+
+  })
+
+  if (prop_counter == 0) {
+    output += "nothing\n"
+  }
+
+  return output
