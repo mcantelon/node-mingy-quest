@@ -1,36 +1,25 @@
-var mingyQuest = require('./lib/index')
+var mingyQuest = require('./lib')
   , Game = mingyQuest.Game
   , Player = mingyQuest.Player
   , mingy = require('mingy')
   , Parser = mingy.Parser
-  , Shell = mingy.Shell
-
-
-/*
-GAME SHOULD PROLLY LOOK COMMANDS
-shell should get game not parser
-*/
-
+  , Shell = mingyQuest.Shell
 
 var parser = new Parser()
 
 //var output = parser.parseLexemes(['go', 'north'])
 
-function startShell() {
-  game.loadYamlFilesIntoGame(__dirname + '/games/daydream/locations', 'Location', function() {
-    game.loadYamlFilesIntoGame(__dirname + '/games/daydream/props', 'Prop', function() {
-      shell = new Shell(parser);
-      shell.start();
-    });
-  });
-}
-
-var game = new Game(parser);
-
-game.player = new Player();
-game.player.location = 'entrance';
+var game = new Game();
 
 game.addElementType('Location', __dirname + '/lib/location.js', 'locations')
 .addElementType('Prop', __dirname + '/lib/prop.js', 'props')
 .addPlayer('default')
-.loadCommands(__dirname + '/commands', startShell)
+.loadYamlFilesIntoGame(__dirname + '/games/daydream/locations', 'Location', function() {
+  game.loadYamlFilesIntoGame(__dirname + '/games/daydream/props', 'Prop', function() {
+    game.player = new Player({props: game.props});
+    game.player.location = 'entrance';
+
+    var shell = new Shell(parser);
+    shell.loadCommands(game, __dirname + '/commands', function() { shell.start(); })
+  });
+});
